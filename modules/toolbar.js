@@ -76,7 +76,7 @@ class Toolbar extends Module {
           value = selected.value || false;
         }
       } else {
-        if (input.classList.contains('ql-active')) {
+        if (input.classList.contains('ql-active2')) {
           value = false;
         } else {
           value = input.value || !input.hasAttribute('value');
@@ -131,7 +131,7 @@ class Toolbar extends Module {
           option.selected = true;
         }
       } else if (range == null) {
-        input.classList.remove('ql-active');
+        input.classList.remove('ql-active2');
       } else if (input.hasAttribute('value')) {
         // both being null should match (default values)
         // '1' should match with 1 (headers)
@@ -140,9 +140,9 @@ class Toolbar extends Module {
           (formats[format] != null &&
             formats[format].toString() === input.getAttribute('value')) ||
           (formats[format] == null && !input.getAttribute('value'));
-        input.classList.toggle('ql-active', isActive);
+        input.classList.toggle('ql-active2', isActive);
       } else {
-        input.classList.toggle('ql-active', formats[format] != null);
+        input.classList.toggle('ql-active2', formats[format] != null);
       }
     });
   }
