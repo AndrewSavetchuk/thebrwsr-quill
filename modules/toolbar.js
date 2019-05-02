@@ -150,7 +150,7 @@ class Toolbar extends Module {
         if (inputParent) {
           inputParent.classList.toggle(input.dataset.value, isActive);
         }
-        input.classList.toggle(input.dataset.value, isActive);
+        input.classList.toggle('ql-active', isActive);
       } else {
         if (inputParent) {
           inputParent.classList.toggle(
@@ -158,7 +158,7 @@ class Toolbar extends Module {
             formats[format] != null,
           );
         }
-        input.classList.toggle(input.dataset.value, formats[format] != null);
+        input.classList.toggle('ql-active', formats[format] != null);
       }
     });
   }
