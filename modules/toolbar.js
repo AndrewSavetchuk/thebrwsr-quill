@@ -76,7 +76,7 @@ class Toolbar extends Module {
           value = selected.value || false;
         }
       } else {
-        if (input.classList.contains('ql-active2')) {
+        if (input.classList.contains('ql-active')) {
           value = false;
         } else {
           value = input.value || !input.hasAttribute('value');
@@ -111,6 +111,10 @@ class Toolbar extends Module {
     const formats = range == null ? {} : this.quill.getFormat(range);
     this.controls.forEach(pair => {
       const [format, input] = pair;
+      let inputParent = null;
+      if (input.dataset.parent) {
+        inputParent = document.getElementById(input.dataset.parent);
+      }
       if (input.tagName === 'SELECT') {
         let option;
         if (range == null) {
@@ -131,7 +135,10 @@ class Toolbar extends Module {
           option.selected = true;
         }
       } else if (range == null) {
-        input.classList.remove('ql-active2');
+        if (inputParent) {
+          inputParent.classList.remove(input.dataset.value);
+        }
+        input.classList.remove('ql-active');
       } else if (input.hasAttribute('value')) {
         // both being null should match (default values)
         // '1' should match with 1 (headers)
@@ -140,9 +147,18 @@ class Toolbar extends Module {
           (formats[format] != null &&
             formats[format].toString() === input.getAttribute('value')) ||
           (formats[format] == null && !input.getAttribute('value'));
-        input.classList.toggle('ql-active2', isActive);
+        if (inputParent) {
+          inputParent.classList.toggle(input.dataset.value, isActive);
+        }
+        input.classList.toggle(input.dataset.value, isActive);
       } else {
-        input.classList.toggle('ql-active2', formats[format] != null);
+        if (inputParent) {
+          inputParent.classList.toggle(
+            input.dataset.value,
+            formats[format] != null,
+          );
+        }
+        input.classList.toggle(input.dataset.value, formats[format] != null);
       }
     });
   }
