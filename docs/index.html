@@ -7,8 +7,8 @@ redirect_from: /latest/
 <!-- head -->
 <link href="{{site.katex}}/katex.min.css" rel="stylesheet">
 <link href="{{site.highlightjs}}/styles/monokai-sublime.min.css" rel="stylesheet">
-<link href="{{ site.cdn }}{{ site.version }}/quill.bubble.css" rel="stylesheet">
-<link href="{{ site.cdn }}{{ site.version }}/quill.snow.css" rel="stylesheet">
+<link href="http://localhost:9080/quill.bubble.css" rel="stylesheet">
+<link href="http://localhost:9080/quill.snow.css" rel="stylesheet">
 <!-- head -->
 
 <div id="above-container">
@@ -45,11 +45,6 @@ redirect_from: /latest/
     </div>
 
     <div id="laptop-container">
-      <div id="camera-container">
-        <span class="camera"></span>
-        <span class="camera active"></span>
-        <span class="camera"></span>
-      </div>
       <div id="demo-container">
         <div id="carousel-container">
           <div id="bubble-wrapper">
@@ -61,46 +56,8 @@ redirect_from: /latest/
             <div id="snow-container">
               <div class="toolbar">
                 <span class="ql-formats">
-                  <select class="ql-header">
-                    <option value="1">Heading</option>
-                    <option value="2">Subheading</option>
-                    <option selected>Normal</option>
-                  </select>
-                  <select class="ql-font">
-                    <option selected>Sailec Light</option>
-                    <option value="sofia">Sofia Pro</option>
-                    <option value="slabo">Slabo 27px</option>
-                    <option value="roboto">Roboto Slab</option>
-                    <option value="inconsolata">Inconsolata</option>
-                    <option value="ubuntu">Ubuntu Mono</option>
-                  </select>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-bold"></button>
-                  <button class="ql-italic"></button>
-                  <button class="ql-underline"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-list" value="ordered"></button>
-                  <button class="ql-list" value="bullet"></button>
-                  <select class="ql-align">
-                    <option label="left" selected></option>
-                    <option label="center" value="center"></option>
-                    <option label="right" value="right"></option>
-                    <option label="justify" value="justify"></option>
-                  </select>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-link"></button>
-                  <button class="ql-image"></button>
-                  <button class="ql-video"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-formula"></button>
-                  <button class="ql-code-block"></button>
-                </span>
-                <span class="ql-formats">
-                  <button class="ql-clean"></button>
+                  <button class="ql-highlight" value="green">green</button>
+                  <button class="ql-highlight" value="yellow">yellow</button>
                 </span>
               </div>
               <div class="editor">
@@ -195,7 +152,7 @@ redirect_from: /latest/
 <!-- script -->
 <script src="{{site.katex}}/katex.min.js"></script>
 <script src="{{site.highlightjs}}/highlight.min.js"></script>
-<script src="{{ site.cdn }}{{ site.version }}/{{ site.quill }}"></script>
+<script src="http://localhost:9080/quill.js"></script>
 <script>
 (function() {
   $(document).ready(function() {
