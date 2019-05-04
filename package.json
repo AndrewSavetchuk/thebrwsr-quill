@@ -76,10 +76,10 @@
   "license": "BSD-3-Clause",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AndriiSavetchuk/quill"
+    "url": "https://github.com/AndrewSavetchuk/quill"
   },
   "bugs": {
-    "url": "https://github.com/AndriiSavetchuk/quill/issues"
+    "url": "https://github.com/AndrewSavetchuk/quill/issues"
   },
   "eslintConfig": {
     "extends": [
