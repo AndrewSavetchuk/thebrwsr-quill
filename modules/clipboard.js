@@ -32,7 +32,7 @@ const CLIPBOARD_CONFIG = [
   [Node.ELEMENT_NODE, matchStyles],
   ['li', matchIndent],
   ['ol, ul', matchList],
-  ['span', matchSpan],
+  // ['span', matchSpan],
   ['pre', matchCodeBlock],
   ['tr', matchTable],
   ['b', matchAlias.bind(matchAlias, 'bold')],
@@ -101,7 +101,6 @@ class Clipboard extends Module {
       textMatchers,
       nodeMatches,
     );
-    console.log('DELTA', delta);
     // Remove trailing newline
     if (
       deltaEndsWith(delta, '\n') &&
@@ -378,7 +377,7 @@ function matchBlot(node, delta, scroll) {
     if (typeof match.formats === 'function') {
       if (node.classList[0] === 'span-tooltip') {
         // eslint-disable-next-line
-        return applyFormat(delta, 'highlightTooltip', match.formats(node, scroll));
+        return applyFormat(delta, 'highlightTooltip', node.dataset.tooltip);
       }
       return applyFormat(delta, match.blotName, match.formats(node, scroll));
     }
@@ -434,13 +433,13 @@ function matchList(node, delta) {
   return applyFormat(delta, 'list', list);
 }
 
-function matchSpan(node, delta) {
-  if (node.classList[0] === 'span-tooltip') {
-    const span = node.dataset.tooltip;
-    return applyFormat(delta, 'highlightTooltip', span);
-  }
-  return delta;
-}
+// function matchSpan(node, delta) {
+//   if (node.classList[0] === 'span-tooltip') {
+//     const span = node.dataset.tooltip;
+//     return applyFormat(delta, 'highlightTooltip', span);
+//   }
+//   return delta;
+// }
 
 function matchNewline(node, delta) {
   if (!deltaEndsWith(delta, '\n')) {
