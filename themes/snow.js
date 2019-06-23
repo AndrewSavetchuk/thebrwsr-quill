@@ -53,15 +53,17 @@ class SnowTooltip extends BaseTooltip {
       (range, oldRange, source) => {
         if (range == null) return;
         if (range.length === 0 && source === Emitter.sources.USER) {
-          console.log('entered');
+          // eslint-disable-next-line
+          const hData = this.quill.scroll.descendant(HighlightTooltipBlot, range.index);
+          const highlightTooltip = hData[0];
+          const hOffset = hData[1];
           const [link, offset] = this.quill.scroll.descendant(
             LinkBlot,
             range.index,
           );
-          const [highlightTooltip, hOffset] = this.quill.scroll.descendant(
-            HighlightTooltipBlot,
-            range.index,
-          );
+          console.log(hData);
+          console.log(highlightTooltip);
+          console.log(hOffset);
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
