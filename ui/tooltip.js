@@ -14,6 +14,7 @@ class Tooltip {
 
   hide() {
     this.root.classList.add('ql-hidden');
+    this.root.classList.remove('ql-preview-span');
   }
 
   position(reference) {
@@ -44,9 +45,14 @@ class Tooltip {
     return shift;
   }
 
-  show() {
+  show(isLink = true) {
     this.root.classList.remove('ql-editing');
     this.root.classList.remove('ql-hidden');
+    if (!isLink) {
+      this.root.classList.add('ql-preview-span');
+    } else {
+      this.root.classList.remove('ql-preview-span');
+    }
   }
 }
 

@@ -12,6 +12,11 @@ tooltipMargin = 8px
       content: "Visit URL:"
       line-height: 26px
       margin-right: tooltipMargin
+    &.ql-preview-span
+      &::before
+        content: "Tooltip text:"
+        line-height: 26px
+        margin-right: tooltipMargin
     input[type=text]
       display: none
       border: 1px solid borderColor
@@ -37,7 +42,8 @@ tooltipMargin = 8px
     a
       line-height: 26px
   .ql-tooltip.ql-editing
-    a.ql-preview, a.ql-remove
+    a.ql-preview, a.ql-remove,
+    span.ql-preview
       display: none
     input[type=text]
       display: inline-block

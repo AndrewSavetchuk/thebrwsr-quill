@@ -20,6 +20,7 @@ import { SizeClass, SizeStyle } from './formats/size';
 import Bold from './formats/bold';
 import Italic from './formats/italic';
 import Link from './formats/link';
+import HighlightTooltip from './formats/highlightTooltip';
 import Script from './formats/script';
 import Strike from './formats/strike';
 import Highlight from './formats/highlight';
@@ -85,6 +86,7 @@ Quill.register(
     'formats/code': InlineCode,
     'formats/italic': Italic,
     'formats/link': Link,
+    'formats/highlightTooltip': HighlightTooltip,
     'formats/script': Script,
     'formats/strike': Strike,
     'formats/underline': Underline,

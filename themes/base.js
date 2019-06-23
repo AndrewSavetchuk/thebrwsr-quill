@@ -211,6 +211,11 @@ class BaseTooltip extends Tooltip {
   }
 
   edit(mode = 'link', preview = null) {
+    if (mode === 'highlightTooltip') {
+      this.root.classList.add('ql-preview-span');
+    } else {
+      this.root.classList.remove('ql-preview-span');
+    }
     this.root.classList.remove('ql-hidden');
     this.root.classList.add('ql-editing');
     if (preview != null) {
@@ -249,6 +254,23 @@ class BaseTooltip extends Tooltip {
         } else {
           this.restoreFocus();
           this.quill.format('link', value, Emitter.sources.USER);
+        }
+        this.quill.root.scrollTop = scrollTop;
+        break;
+      }
+      case 'highlightTooltip': {
+        const { scrollTop } = this.quill.root;
+        if (this.linkRange) {
+          this.quill.formatText(
+            this.linkRange,
+            'highlightTooltip',
+            value,
+            Emitter.sources.USER,
+          );
+          delete this.linkRange;
+        } else {
+          this.restoreFocus();
+          this.quill.format('highlightTooltip', value, Emitter.sources.USER);
         }
         this.quill.root.scrollTop = scrollTop;
         break;

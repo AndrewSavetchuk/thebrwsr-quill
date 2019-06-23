@@ -2,6 +2,7 @@ import extend from 'extend';
 import Emitter from '../core/emitter';
 import BaseTheme, { BaseTooltip } from './base';
 import LinkBlot from '../formats/link';
+import HighlightTooltipBlot from '../formats/highlightTooltip';
 import { Range } from '../core/selection';
 import icons from '../ui/icons';
 
@@ -16,6 +17,7 @@ class SnowTooltip extends BaseTooltip {
   constructor(quill, bounds) {
     super(quill, bounds);
     this.preview = this.root.querySelector('a.ql-preview');
+    this.previewSpan = this.root.querySelector('span.ql-preview');
   }
 
   listen() {
@@ -23,6 +25,8 @@ class SnowTooltip extends BaseTooltip {
     this.root.querySelector('a.ql-action').addEventListener('click', event => {
       if (this.root.classList.contains('ql-editing')) {
         this.save();
+      } else if (this.root.classList.contains('ql-preview-span')) {
+        this.edit('highlightTooltip', this.previewSpan.textContent);
       } else {
         this.edit('link', this.preview.textContent);
       }
@@ -33,6 +37,12 @@ class SnowTooltip extends BaseTooltip {
         const range = this.linkRange;
         this.restoreFocus();
         this.quill.formatText(range, 'link', false, Emitter.sources.USER);
+        this.quill.formatText(
+          range,
+          'highlightTooltip',
+          false,
+          Emitter.sources.USER,
+        );
         delete this.linkRange;
       }
       event.preventDefault();
@@ -47,12 +57,32 @@ class SnowTooltip extends BaseTooltip {
             LinkBlot,
             range.index,
           );
+          const [highlightTooltip, hOffset] = this.quill.scroll.descendant(
+            HighlightTooltipBlot,
+            range.index,
+          );
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
+            this.previewSpan.textContent = '';
             this.preview.textContent = preview;
             this.preview.setAttribute('href', preview);
             this.show();
+            this.position(this.quill.getBounds(this.linkRange));
+            return;
+          }
+          if (highlightTooltip != null) {
+            this.linkRange = new Range(
+              range.index - hOffset,
+              highlightTooltip.length(),
+            );
+            const preview = HighlightTooltipBlot.formats(
+              highlightTooltip.domNode,
+            );
+            this.preview.textContent = '';
+            this.previewSpan.textContent = preview;
+            this.previewSpan.setAttribute('data-tooltip', preview);
+            this.show(false);
             this.position(this.quill.getBounds(this.linkRange));
             return;
           }
@@ -64,12 +94,13 @@ class SnowTooltip extends BaseTooltip {
     );
   }
 
-  show() {
-    super.show();
+  show(isLink = true) {
+    super.show(isLink);
     this.root.removeAttribute('data-mode');
   }
 }
 SnowTooltip.TEMPLATE = [
+  '<span class="ql-preview"></span>',
   '<a class="ql-preview" rel="noopener noreferrer" target="_blank" href="about:blank"></a>',
   '<input type="text" data-formula="e=mc^2" data-link="https://quilljs.com" data-video="Embed URL">',
   '<a class="ql-action"></a>',
@@ -101,6 +132,17 @@ class SnowTheme extends BaseTheme {
         },
       );
     }
+    if (toolbar.container.querySelector('.ql-highlightTooltip')) {
+      this.quill.keyboard.addBinding(
+        { key: 'k', shortKey: true },
+        (range, context) => {
+          toolbar.handlers.highlightTooltip.call(
+            toolbar,
+            !context.format.highlightTooltip,
+          );
+        },
+      );
+    }
   }
 }
 SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
@@ -122,6 +164,17 @@ SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
             tooltip.edit('link', preview);
           } else {
             this.quill.format('link', false);
+          }
+        },
+        highlightTooltip(value) {
+          if (value) {
+            const range = this.quill.getSelection();
+            if (range == null || range.length === 0) return;
+            const preview = this.quill.getText(range);
+            const { tooltip } = this.quill.theme;
+            tooltip.edit('highlightTooltip', preview);
+          } else {
+            this.quill.format('highlightTooltip', false);
           }
         },
       },
