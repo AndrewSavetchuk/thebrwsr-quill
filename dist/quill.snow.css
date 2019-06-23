@@ -906,6 +906,11 @@
   line-height: 26px;
   margin-right: 8px;
 }
+.ql-snow .ql-tooltip.ql-preview-span::before {
+  content: "Tooltip text:";
+  line-height: 26px;
+  margin-right: 8px;
+}
 .ql-snow .ql-tooltip input[type=text] {
   display: none;
   border: 1px solid #ccc;
@@ -936,7 +941,8 @@
   line-height: 26px;
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-preview,
-.ql-snow .ql-tooltip.ql-editing a.ql-remove {
+.ql-snow .ql-tooltip.ql-editing a.ql-remove,
+.ql-snow .ql-tooltip.ql-editing span.ql-preview {
   display: none;
 }
 .ql-snow .ql-tooltip.ql-editing input[type=text] {
