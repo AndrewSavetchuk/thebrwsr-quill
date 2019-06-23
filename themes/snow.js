@@ -53,6 +53,7 @@ class SnowTooltip extends BaseTooltip {
       (range, oldRange, source) => {
         if (range == null) return;
         if (range.length === 0 && source === Emitter.sources.USER) {
+          console.log('entered');
           const [link, offset] = this.quill.scroll.descendant(
             LinkBlot,
             range.index,
