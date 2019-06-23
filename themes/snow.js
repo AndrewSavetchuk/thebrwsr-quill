@@ -81,7 +81,6 @@ class SnowTooltip extends BaseTooltip {
             const preview = HighlightTooltipBlot.formats(
               highlightTooltip.domNode,
             );
-            console.log('preview', preview);
             this.preview.textContent = '';
             this.previewSpan.textContent = preview;
             this.previewSpan.setAttribute('data-tooltip', preview);
