@@ -429,10 +429,11 @@ function matchList(node, delta) {
 }
 
 function matchSpan(node, delta) {
-  // if (node.classList[0] === 'span-tooltip') {
-  //   const span = node.dataset.tooltip;
-  //   return applyFormat(delta, 'highlightTooltip', span);
-  // }
+  console.log('matchSpan');
+  if (node.classList[0] === 'span-tooltip') {
+    const span = node.dataset.tooltip;
+    return applyFormat(delta, 'highlightTooltip', span);
+  }
   return delta;
 }
 
