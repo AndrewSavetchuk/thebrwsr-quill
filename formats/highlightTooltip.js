@@ -5,6 +5,7 @@ class HighlightTooltip extends Inline {
     const node = super.create(value);
     node.setAttribute('data-tooltip', value);
     node.setAttribute('class', 'span-tooltip');
+    node.setAttribute('color', 'rgb(230, 0, 0)');
     return node;
   }
 
