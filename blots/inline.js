@@ -56,6 +56,7 @@ Inline.order = [
   'script',
   'link',
   'code', // Must be higher
+  'highlightTooltip',
 ];
 
 export default Inline;
