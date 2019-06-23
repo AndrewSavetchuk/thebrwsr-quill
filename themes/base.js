@@ -158,6 +158,9 @@ BaseTheme.DEFAULTS = extend(true, {}, Theme.DEFAULTS, {
         formula() {
           this.quill.theme.tooltip.edit('formula');
         },
+        highlightTooltip() {
+          this.quill.theme.tooltip.edit('highlightTooltip');
+        },
         image() {
           let fileInput = this.container.querySelector(
             'input.ql-image[type=file]',

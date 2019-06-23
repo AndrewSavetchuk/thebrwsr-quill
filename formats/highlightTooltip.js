@@ -22,6 +22,7 @@ class HighlightTooltip extends Inline {
   }
 }
 HighlightTooltip.blotName = 'highlightTooltip';
-HighlightTooltip.tagName = 'span';
+HighlightTooltip.className = 'data-tooltip';
+HighlightTooltip.tagName = 'SPAN';
 
 export { HighlightTooltip as default };

@@ -32,6 +32,7 @@ const CLIPBOARD_CONFIG = [
   [Node.ELEMENT_NODE, matchStyles],
   ['li', matchIndent],
   ['ol, ul', matchList],
+  ['span', matchSpan],
   ['pre', matchCodeBlock],
   ['tr', matchTable],
   ['b', matchAlias.bind(matchAlias, 'bold')],
@@ -425,6 +426,14 @@ function matchIndent(node, delta, scroll) {
 function matchList(node, delta) {
   const list = node.tagName === 'OL' ? 'ordered' : 'bullet';
   return applyFormat(delta, 'list', list);
+}
+
+function matchSpan(node, delta) {
+  if (node.classList[0] === 'span-tooltip') {
+    const span = node.dataset.tooltip;
+    return applyFormat(delta, 'highlightTooltip', span);
+  }
+  return delta;
 }
 
 function matchNewline(node, delta) {
