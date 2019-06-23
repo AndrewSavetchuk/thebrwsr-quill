@@ -71,6 +71,7 @@ class SnowTooltip extends BaseTooltip {
             this.position(this.quill.getBounds(this.linkRange));
             return;
           }
+          console.log('highlightTooltip', highlightTooltip);
           if (highlightTooltip != null) {
             this.linkRange = new Range(
               range.index - hOffset,
@@ -79,6 +80,7 @@ class SnowTooltip extends BaseTooltip {
             const preview = HighlightTooltipBlot.formats(
               highlightTooltip.domNode,
             );
+            console.log('preview', preview);
             this.preview.textContent = '';
             this.previewSpan.textContent = preview;
             this.previewSpan.setAttribute('data-tooltip', preview);
