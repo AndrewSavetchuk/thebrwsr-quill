@@ -101,6 +101,7 @@ class Clipboard extends Module {
       textMatchers,
       nodeMatches,
     );
+    console.log('DELTA', delta);
     // Remove trailing newline
     if (
       deltaEndsWith(delta, '\n') &&
@@ -365,6 +366,7 @@ function matchBlot(node, delta, scroll) {
   if (match.prototype instanceof EmbedBlot) {
     const embed = {};
     const value = match.value(node);
+    // console.log('value', value);
     if (value != null) {
       embed[match.blotName] = value;
       return new Delta().insert(embed, match.formats(node, scroll));
@@ -374,6 +376,10 @@ function matchBlot(node, delta, scroll) {
       delta.insert('\n');
     }
     if (typeof match.formats === 'function') {
+      if (node.classList[0] === 'span-tooltip') {
+        // eslint-disable-next-line
+        return applyFormat(delta, 'highlightTooltip', match.formats(node, scroll));
+      }
       return applyFormat(delta, match.blotName, match.formats(node, scroll));
     }
   }
@@ -429,7 +435,6 @@ function matchList(node, delta) {
 }
 
 function matchSpan(node, delta) {
-  console.log('matchSpan');
   if (node.classList[0] === 'span-tooltip') {
     const span = node.dataset.tooltip;
     return applyFormat(delta, 'highlightTooltip', span);
