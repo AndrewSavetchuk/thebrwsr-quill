@@ -71,6 +71,7 @@ class SnowTooltip extends BaseTooltip {
             this.position(this.quill.getBounds(this.linkRange));
             return;
           }
+          console.log('HighlightTooltipBlot', HighlightTooltipBlot);
           console.log('highlightTooltip', highlightTooltip);
           if (highlightTooltip != null) {
             this.linkRange = new Range(
