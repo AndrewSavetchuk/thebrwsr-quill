@@ -113,6 +113,7 @@ class Quill {
       html: `${html}<p><br></p>`,
       text: '\n',
     });
+    console.log('contents', contents);
     this.setContents(contents);
     this.history.clear();
     if (this.options.placeholder) {
