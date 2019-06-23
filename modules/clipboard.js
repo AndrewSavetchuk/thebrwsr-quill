@@ -101,7 +101,6 @@ class Clipboard extends Module {
       textMatchers,
       nodeMatches,
     );
-    console.log('delta is', delta);
     // Remove trailing newline
     if (
       deltaEndsWith(delta, '\n') &&

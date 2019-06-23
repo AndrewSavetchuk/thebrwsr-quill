@@ -26,8 +26,10 @@ class SnowTooltip extends BaseTooltip {
       if (this.root.classList.contains('ql-editing')) {
         this.save();
       } else if (this.root.classList.contains('ql-preview-span')) {
+        console.log('themes/snow.js 29');
         this.edit('highlightTooltip', this.previewSpan.textContent);
       } else {
+        console.log('themes/snow.js 32');
         this.edit('link', this.preview.textContent);
       }
       event.preventDefault();
