@@ -66,6 +66,9 @@ class SnowTooltip extends BaseTooltip {
           );
           console.log('highlightTooltip', highlightTooltip);
           console.log('link', link);
+          console.log('======');
+          // eslint-disable-next-line
+          console.log(this.quill.scroll.descendant(HighlightTooltipBlot, range.index));
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
