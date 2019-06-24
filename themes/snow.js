@@ -58,6 +58,8 @@ class SnowTooltip extends BaseTooltip {
             range.index,
           );
           // eslint-disable-next-line
+          console.log('import HighlightTooltipBlot', HighlightTooltipBlot);
+          console.log('import LinkBlot', LinkBlot);
           const [highlightTooltip, hOffset] = this.quill.scroll.descendant(
             HighlightTooltipBlot,
             range.index,
