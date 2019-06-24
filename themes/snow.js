@@ -1,8 +1,8 @@
 import extend from 'extend';
 import Emitter from '../core/emitter';
 import BaseTheme, { BaseTooltip } from './base';
-import LinkBlot from '../formats/link';
 import HighlightTooltipBlot from '../formats/highlightTooltip';
+import LinkBlot from '../formats/link';
 import { Range } from '../core/selection';
 import icons from '../ui/icons';
 
@@ -53,19 +53,17 @@ class SnowTooltip extends BaseTooltip {
       (range, oldRange, source) => {
         if (range == null) return;
         if (range.length === 0 && source === Emitter.sources.USER) {
-          // eslint-disable-next-line
-          const hData = this.quill.scroll.descendant(HighlightTooltipBlot, range.index);
-          const highlightTooltip = hData[0];
-          const hOffset = hData[1];
           const [link, offset] = this.quill.scroll.descendant(
             LinkBlot,
             range.index,
           );
-          console.log('hData', hData);
+          // eslint-disable-next-line
+          const [highlightTooltip, hOffset] = this.quill.scroll.descendant(
+            HighlightTooltipBlot,
+            range.index,
+          );
           console.log('highlightTooltip', highlightTooltip);
-          console.log('hOffset', hOffset);
           console.log('link', link);
-          console.log('offset', offset);
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);

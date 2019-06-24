@@ -23,7 +23,7 @@ import Link from './formats/link';
 import HighlightTooltip from './formats/highlightTooltip';
 import Script from './formats/script';
 import Strike from './formats/strike';
-import Highlight from './formats/highlight';
+// import Highlight from './formats/highlight';
 import Underline from './formats/underline';
 
 import Formula from './formats/formula';
@@ -95,7 +95,7 @@ Quill.register(
     'formats/image': Image,
     'formats/video': Video,
 
-    'formats/highlight': Highlight,
+    // 'formats/highlight': Highlight,
 
     'modules/syntax': Syntax,
     'modules/table': Table,
