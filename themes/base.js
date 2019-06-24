@@ -158,8 +158,8 @@ BaseTheme.DEFAULTS = extend(true, {}, Theme.DEFAULTS, {
         formula() {
           this.quill.theme.tooltip.edit('formula');
         },
-        highlightTooltip() {
-          this.quill.theme.tooltip.edit('highlightTooltip');
+        ctooltip() {
+          this.quill.theme.tooltip.edit('ctooltip');
         },
         image() {
           let fileInput = this.container.querySelector(
@@ -214,7 +214,7 @@ class BaseTooltip extends Tooltip {
   }
 
   edit(mode = 'link', preview = null) {
-    if (mode === 'highlightTooltip') {
+    if (mode === 'ctooltip') {
       this.root.classList.add('ql-preview-span');
     } else {
       this.root.classList.remove('ql-preview-span');
@@ -261,19 +261,19 @@ class BaseTooltip extends Tooltip {
         this.quill.root.scrollTop = scrollTop;
         break;
       }
-      case 'highlightTooltip': {
+      case 'ctooltip': {
         const { scrollTop } = this.quill.root;
         if (this.linkRange) {
           this.quill.formatText(
             this.linkRange,
-            'highlightTooltip',
+            'ctooltip',
             value,
             Emitter.sources.USER,
           );
           delete this.linkRange;
         } else {
           this.restoreFocus();
-          this.quill.format('highlightTooltip', value, Emitter.sources.USER);
+          this.quill.format('ctooltip', value, Emitter.sources.USER);
         }
         this.quill.root.scrollTop = scrollTop;
         break;

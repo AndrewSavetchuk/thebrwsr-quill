@@ -1,14 +1,14 @@
 import extend from 'extend';
 import Emitter from '../core/emitter';
 import BaseTheme, { BaseTooltip } from './base';
-import HighlightTooltipBlot from '../formats/highlightTooltip';
+import CtooltipBlot from '../formats/ctooltip';
 import LinkBlot from '../formats/link';
 import { Range } from '../core/selection';
 import icons from '../ui/icons';
 
 const TOOLBAR_CONFIG = [
   [{ header: ['1', '2', '3', false] }],
-  ['bold', 'italic', 'underline', 'link', 'highlightTooltip'],
+  ['bold', 'italic', 'underline', 'link', 'ctooltip'],
   [{ list: 'ordered' }, { list: 'bullet' }],
   ['clean'],
 ];
@@ -26,7 +26,7 @@ class SnowTooltip extends BaseTooltip {
       if (this.root.classList.contains('ql-editing')) {
         this.save();
       } else if (this.root.classList.contains('ql-preview-span')) {
-        this.edit('highlightTooltip', this.previewSpan.textContent);
+        this.edit('ctooltip', this.previewSpan.textContent);
       } else {
         this.edit('link', this.preview.textContent);
       }
@@ -37,12 +37,7 @@ class SnowTooltip extends BaseTooltip {
         const range = this.linkRange;
         this.restoreFocus();
         this.quill.formatText(range, 'link', false, Emitter.sources.USER);
-        this.quill.formatText(
-          range,
-          'highlightTooltip',
-          false,
-          Emitter.sources.USER,
-        );
+        this.quill.formatText(range, 'ctooltip', false, Emitter.sources.USER);
         delete this.linkRange;
       }
       event.preventDefault();
@@ -58,17 +53,17 @@ class SnowTooltip extends BaseTooltip {
             range.index,
           );
           // eslint-disable-next-line
-          console.log('import HighlightTooltipBlot', HighlightTooltipBlot);
+          console.log('import CtooltipBlot', CtooltipBlot);
           console.log('import LinkBlot', LinkBlot);
-          const [highlightTooltip, hOffset] = this.quill.scroll.descendant(
-            HighlightTooltipBlot,
+          const [ctooltip, hOffset] = this.quill.scroll.descendant(
+            CtooltipBlot,
             range.index,
           );
-          console.log('highlightTooltip', highlightTooltip);
+          console.log('ctooltip', ctooltip);
           console.log('link', link);
           console.log('======');
           // eslint-disable-next-line
-          console.log(this.quill.scroll.descendant(HighlightTooltipBlot, range.index));
+          console.log(this.quill.scroll.descendant(CtooltipBlot, range.index));
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
@@ -79,14 +74,12 @@ class SnowTooltip extends BaseTooltip {
             this.position(this.quill.getBounds(this.linkRange));
             return;
           }
-          if (highlightTooltip != null) {
+          if (ctooltip != null) {
             this.linkRange = new Range(
               range.index - hOffset,
-              highlightTooltip.length(),
+              ctooltip.length(),
             );
-            const preview = HighlightTooltipBlot.formats(
-              highlightTooltip.domNode,
-            );
+            const preview = CtooltipBlot.formats(ctooltip.domNode);
             this.preview.textContent = '';
             this.previewSpan.textContent = preview;
             this.previewSpan.setAttribute('data-tooltip', preview);
@@ -140,14 +133,11 @@ class SnowTheme extends BaseTheme {
         },
       );
     }
-    if (toolbar.container.querySelector('.ql-highlightTooltip')) {
+    if (toolbar.container.querySelector('.ql-ctooltip')) {
       this.quill.keyboard.addBinding(
         { key: 'k', shortKey: true },
         (range, context) => {
-          toolbar.handlers.highlightTooltip.call(
-            toolbar,
-            !context.format.highlightTooltip,
-          );
+          toolbar.handlers.ctooltip.call(toolbar, !context.format.ctooltip);
         },
       );
     }
@@ -174,15 +164,15 @@ SnowTheme.DEFAULTS = extend(true, {}, BaseTheme.DEFAULTS, {
             this.quill.format('link', false);
           }
         },
-        highlightTooltip(value) {
+        ctooltip(value) {
           if (value) {
             const range = this.quill.getSelection();
             if (range == null || range.length === 0) return;
             const preview = this.quill.getText(range);
             const { tooltip } = this.quill.theme;
-            tooltip.edit('highlightTooltip', preview);
+            tooltip.edit('ctooltip', preview);
           } else {
-            this.quill.format('highlightTooltip', false);
+            this.quill.format('ctooltip', false);
           }
         },
       },

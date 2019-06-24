@@ -377,7 +377,7 @@ function matchBlot(node, delta, scroll) {
     if (typeof match.formats === 'function') {
       if (node.classList[0] === 'span-tooltip') {
         // eslint-disable-next-line
-        return applyFormat(delta, 'highlightTooltip', node.dataset.tooltip);
+        return applyFormat(delta, 'ctooltip', node.dataset.tooltip);
       }
       return applyFormat(delta, match.blotName, match.formats(node, scroll));
     }
@@ -436,7 +436,7 @@ function matchList(node, delta) {
 // function matchSpan(node, delta) {
 //   if (node.classList[0] === 'span-tooltip') {
 //     const span = node.dataset.tooltip;
-//     return applyFormat(delta, 'highlightTooltip', span);
+//     return applyFormat(delta, 'ctooltip', span);
 //   }
 //   return delta;
 // }

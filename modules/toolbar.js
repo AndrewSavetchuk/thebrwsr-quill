@@ -257,11 +257,11 @@ Toolbar.DEFAULTS = {
       }
       this.quill.format('link', value, Quill.sources.USER);
     },
-    highlightTooltip(value) {
+    ctooltip(value) {
       if (value === true) {
         value = prompt('Enter tooltip:'); // eslint-disable-line no-alert
       }
-      this.quill.format('highlightTooltip', value, Quill.sources.USER);
+      this.quill.format('ctooltip', value, Quill.sources.USER);
     },
     list(value) {
       const range = this.quill.getSelection();

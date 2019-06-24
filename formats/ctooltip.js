@@ -1,6 +1,6 @@
 import Inline from '../blots/inline';
 
-class HighlightTooltip extends Inline {
+class Ctooltip extends Inline {
   static create(value) {
     const node = super.create(value);
     node.setAttribute('data-tooltip', value);
@@ -21,8 +21,8 @@ class HighlightTooltip extends Inline {
     }
   }
 }
-HighlightTooltip.blotName = 'highlightTooltip';
-HighlightTooltip.className = 'data-tooltip';
-HighlightTooltip.tagName = 'span';
+Ctooltip.blotName = 'ctooltip';
+Ctooltip.className = 'data-tooltip';
+Ctooltip.tagName = 'span';
 
-export { HighlightTooltip as default };
+export { Ctooltip as default };

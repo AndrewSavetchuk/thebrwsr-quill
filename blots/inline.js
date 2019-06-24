@@ -54,7 +54,7 @@ Inline.order = [
   'italic',
   'bold',
   'script',
-  'highlightTooltip',
+  'ctooltip',
   'link',
   'code', // Must be higher
 ];
