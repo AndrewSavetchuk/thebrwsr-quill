@@ -64,7 +64,7 @@ class SnowTooltip extends BaseTooltip {
           console.log('hData', hData);
           console.log('highlightTooltip', highlightTooltip);
           console.log('hOffset', hOffset);
-          console.log('link, link');
+          console.log('link', link);
           console.log('offset', offset);
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
