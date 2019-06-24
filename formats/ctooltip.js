@@ -5,7 +5,7 @@ class Ctooltip extends Inline {
     const node = super.create(value);
     node.setAttribute('data-tooltip', value);
     node.setAttribute('class', 'span-tooltip');
-    node.setAttribute('color', 'rgb(230, 0, 0)');
+    // node.setAttribute('color', 'rgb(230, 0, 0)');
     return node;
   }
 
@@ -25,4 +25,4 @@ Ctooltip.blotName = 'ctooltip';
 Ctooltip.className = 'data-tooltip';
 Ctooltip.tagName = 'span';
 
-export { Ctooltip as default };
+export default Ctooltip;
