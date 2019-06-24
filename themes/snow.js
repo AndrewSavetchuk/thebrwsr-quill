@@ -56,9 +56,6 @@ class SnowTooltip extends BaseTooltip {
             CtooltipBlot,
             range.index,
           );
-          console.log(this.quill.scroll);
-          // eslint-disable-next-line
-          console.log(this.quill.scroll.descendant(CtooltipBlot, range.index));
           if (link != null) {
             this.linkRange = new Range(range.index - offset, link.length());
             const preview = LinkBlot.formats(link.domNode);
@@ -68,8 +65,8 @@ class SnowTooltip extends BaseTooltip {
             this.show();
             this.position(this.quill.getBounds(this.linkRange));
             return;
-          }
-          if (ctooltip != null) {
+            // eslint-disable-next-line
+          } else if (ctooltip != null) {
             this.linkRange = new Range(
               range.index - hOffset,
               ctooltip.length(),
