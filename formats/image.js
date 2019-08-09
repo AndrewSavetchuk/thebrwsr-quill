@@ -1,7 +1,14 @@
 import { EmbedBlot } from 'parchment';
 import { sanitize } from './link';
 
-const ATTRIBUTES = ['alt', 'height', 'width'];
+const ATTRIBUTES = [
+  'alt',
+  'height',
+  'width',
+  'data-description',
+  'data-wide',
+  'class',
+];
 
 class Image extends EmbedBlot {
   static create(value) {
