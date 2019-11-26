@@ -235,9 +235,9 @@ class BaseTooltip extends Tooltip {
     this.root.setAttribute('data-mode', mode);
   }
 
-  restoreFocus() {
+  restoreFocus(noFocus = false) {
     const { scrollTop } = this.quill.scrollingContainer;
-    this.quill.focus();
+    this.quill.focus(noFocus);
     this.quill.scrollingContainer.scrollTop = scrollTop;
   }
 
@@ -255,7 +255,7 @@ class BaseTooltip extends Tooltip {
           );
           delete this.linkRange;
         } else {
-          this.restoreFocus();
+          this.restoreFocus(true); // noFocus
           this.quill.format('link', value, Emitter.sources.USER);
         }
         this.quill.root.scrollTop = scrollTop;

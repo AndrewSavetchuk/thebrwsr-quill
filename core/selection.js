@@ -98,10 +98,15 @@ class Selection {
     });
   }
 
-  focus() {
+  focus(noFocus = false) {
     if (this.hasFocus()) return;
-    this.root.focus();
-    this.setRange(this.savedRange);
+
+    if (noFocus) {
+      this.setRangeNoFocus(this.savedRange);
+    } else {
+      this.root.focus();
+      this.setRange(this.savedRange);
+    }
   }
 
   format(format, value) {
@@ -301,6 +306,59 @@ class Selection {
   }
 
   setNativeRange(
+      startNode,
+      startOffset,
+      endNode = startNode,
+      endOffset = startOffset,
+      force = false,
+  ) {
+    debug.info('setNativeRange', startNode, startOffset, endNode, endOffset);
+    if (
+        startNode != null &&
+        (this.root.parentNode == null ||
+            startNode.parentNode == null ||
+            endNode.parentNode == null)
+    ) {
+      return;
+    }
+    const selection = document.getSelection();
+    if (selection == null) return;
+    if (startNode != null) {
+      if (!this.hasFocus()) this.root.focus();
+      const { native } = this.getNativeRange() || {};
+      if (
+          native == null ||
+          force ||
+          startNode !== native.startContainer ||
+          startOffset !== native.startOffset ||
+          endNode !== native.endContainer ||
+          endOffset !== native.endOffset
+      ) {
+        if (startNode.tagName === 'BR') {
+          startOffset = Array.from(startNode.parentNode.childNodes).indexOf(
+              startNode,
+          );
+          startNode = startNode.parentNode;
+        }
+        if (endNode.tagName === 'BR') {
+          endOffset = Array.from(endNode.parentNode.childNodes).indexOf(
+              endNode,
+          );
+          endNode = endNode.parentNode;
+        }
+        const range = document.createRange();
+        range.setStart(startNode, startOffset);
+        range.setEnd(endNode, endOffset);
+        selection.removeAllRanges();
+        selection.addRange(range);
+      }
+    } else {
+      selection.removeAllRanges();
+      this.root.blur();
+    }
+  }
+
+  setNativeRangeNoFocus(
     startNode,
     startOffset,
     endNode = startNode,
@@ -319,7 +377,6 @@ class Selection {
     const selection = document.getSelection();
     if (selection == null) return;
     if (startNode != null) {
-      if (!this.hasFocus()) this.root.focus();
       const { native } = this.getNativeRange() || {};
       if (
         native == null ||
@@ -364,6 +421,21 @@ class Selection {
       this.setNativeRange(...args, force);
     } else {
       this.setNativeRange(null);
+    }
+    this.update(source);
+  }
+
+  setRangeNoFocus(range, force = false, source = Emitter.sources.API) {
+    if (typeof force === 'string') {
+      source = force;
+      force = false;
+    }
+    debug.info('setRange', range);
+    if (range != null) {
+      const args = this.rangeToNative(range);
+      this.setNativeRangeNoFocus(...args, force);
+    } else {
+      this.setNativeRangeNoFocus(null);
     }
     this.update(source);
   }
